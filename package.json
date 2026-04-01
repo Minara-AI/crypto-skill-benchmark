@@ -1,6 +1,6 @@
 {
   "name": "crypto-skill-bench",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Benchmark framework for evaluating crypto skills in AI agent ecosystems",
   "type": "module",
   "bin": {

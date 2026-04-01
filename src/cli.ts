@@ -7,6 +7,7 @@ import type { CLIOptions, TierName } from "./types.js";
 import { run, writeSkillReport } from "./runner.js";
 import { setJudgeModel, getJudgeModel } from "./judge.js";
 import { setSkillModel, getSkillModel } from "./skill-invoker.js";
+import { ensureApiKey } from "./config.js";
 
 const USAGE = `
 crypto-skill-bench — Benchmark framework for crypto skills
@@ -108,6 +109,8 @@ async function main() {
   if (command === "evaluate") {
     const evalArgs = parseEvaluateArgs(args.slice(1));
     if (!evalArgs) process.exit(1);
+
+    await ensureApiKey();
 
     setJudgeModel(evalArgs.model);
     setSkillModel(evalArgs.skillModel);
