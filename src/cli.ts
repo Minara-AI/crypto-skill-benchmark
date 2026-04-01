@@ -38,6 +38,7 @@ EVALUATE OPTIONS:
   --skill-model MODEL     OpenRouter model ID for skill invocation (default: anthropic/claude-sonnet-4-6)
 
 GENERAL:
+  --version, -v           Show version and check for updates
   --help                  Show this help
 
 ENVIRONMENT:
@@ -69,13 +70,50 @@ EXAMPLES:
   crypto-skill-bench evaluate ./skills/minara-official --ci
 `.trim();
 
+async function checkForUpdate(): Promise<void> {
+  try {
+    const { createRequire } = await import("module");
+    const require = createRequire(import.meta.url);
+    const pkg = require("../package.json");
+    const currentVersion = pkg.version;
+
+    const res = await fetch("https://registry.npmjs.org/crypto-skill-bench/latest", {
+      signal: AbortSignal.timeout(3000),
+    });
+    if (!res.ok) return;
+
+    const data = await res.json() as { version: string };
+    const latestVersion = data.version;
+
+    if (latestVersion && latestVersion !== currentVersion) {
+      console.log(`\n  Update available: ${currentVersion} → ${latestVersion}`);
+      console.log(`  Run: npm install -g crypto-skill-bench@latest\n`);
+    }
+  } catch {
+    // Silent fail — don't block CLI on network errors
+  }
+}
+
 async function main() {
   const args = process.argv.slice(2);
+
+  // ── version ──────────────────────────────────────────────
+  if (args.includes("--version") || args.includes("-v")) {
+    const { createRequire } = await import("module");
+    const require = createRequire(import.meta.url);
+    const pkg = require("../package.json");
+    console.log(`crypto-skill-bench v${pkg.version}`);
+    await checkForUpdate();
+    process.exit(0);
+  }
 
   if (args.length === 0 || args.includes("--help")) {
     console.log(USAGE);
     process.exit(0);
   }
+
+  // Check for updates in the background (non-blocking)
+  checkForUpdate();
 
   const command = args[0];
 
