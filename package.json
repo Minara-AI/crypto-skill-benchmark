@@ -1,6 +1,10 @@
 {
   "name": "crypto-skill-bench",
   "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Minara-AI/crypto-skill-benchmark.git"
+  },
   "description": "Benchmark framework for evaluating crypto skills in AI agent ecosystems",
   "type": "module",
   "bin": {
