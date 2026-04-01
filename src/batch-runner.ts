@@ -290,8 +290,8 @@ async function generateSummary(
   // Summary table
   lines.push("## Summary");
   lines.push("");
-  lines.push("| # | Skill | Category | Version | Score | Report |");
-  lines.push("|---|-------|----------|---------|-------|--------|");
+  lines.push("| # | Skill | Category | Version | Safety Gate | Score | Report |");
+  lines.push("|---|-------|----------|---------|-------------|-------|--------|");
 
   const sorted = [...results].sort((a, b) => {
     if (a.error && !b.error) return 1;
@@ -304,12 +304,13 @@ async function generateSummary(
     const link = r.error ? "-" : `[detail](skill-reports/${r.skill}.md)`;
     if (r.error) {
       lines.push(
-        `| ${i + 1} | ${r.skill} | ${r.category} | ${r.version} | - | - |`
+        `| ${i + 1} | ${r.skill} | ${r.category} | ${r.version} | - | - | - |`
       );
     } else if (r.result) {
       const score = r.result.qualityScore;
+      const gate = r.result.safetyGate === "PASS" ? "\u2705 PASS" : "\u274C FAIL";
       lines.push(
-        `| ${i + 1} | ${r.skill} | ${r.category} | ${r.version} | ${score}/100 | ${link} |`
+        `| ${i + 1} | ${r.skill} | ${r.category} | ${r.version} | ${gate} | ${score}/100 | ${link} |`
       );
     }
   });
@@ -367,6 +368,7 @@ async function generateSummary(
       version: r.version,
       exitCode: r.exitCode,
       error: r.error || null,
+      safetyGate: r.result?.safetyGate ?? null,
       qualityScore: r.result?.qualityScore ?? null,
       dimensions: r.result?.dimensions
         ? Object.fromEntries(

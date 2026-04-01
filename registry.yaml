@@ -6,6 +6,9 @@
 #
 # Direct sources take priority — they pull from the official upstream repo.
 # Skills without github_repo fall back to the cryptoskill.org aggregator.
+#
+# official: true  → maintained by the project team, pulled by default
+# official: false → community-contributed, pulled only with --all
 
 repo: jiayaoqijia/cryptoskill
 branch: main
@@ -31,12 +34,14 @@ skills:
   - name: kraken-official-spot-execution
     path: skills/exchanges/kraken-official-spot-execution
     category: exchanges
+    official: true
     github_repo: krakenfx/kraken-cli
     github_path: skills/kraken-spot-execution
 
   - name: kucoin-official-spot
     path: skills/exchanges/kucoin-official-spot
     category: exchanges
+    official: true
     github_repo: Kucoin/kucoin-skills-hub
     github_path: skills/spot
 
@@ -56,6 +61,7 @@ skills:
   - name: uniswap-official-swap-planner
     path: skills/defi/uniswap-official-swap-planner
     category: defi
+    official: true
     github_repo: Uniswap/uniswap-ai
     github_path: packages/plugins/uniswap-trading/skills/swap-integration
 
@@ -70,6 +76,7 @@ skills:
   - name: gmx-official-trading
     path: skills/defi/gmx-official-trading
     category: defi
+    official: true
     github_repo: gmx-io/gmx-ai
     github_path: skills/gmx-trading
 
@@ -81,6 +88,7 @@ skills:
   - name: minara-official
     path: skills/trading/minara-official
     category: trading
+    official: true
     github_repo: minara-ai/skills
     github_path: skills/minara
 
@@ -96,12 +104,14 @@ skills:
   - name: coinbase-official-trade
     path: skills/wallets/coinbase-official-trade
     category: wallets
+    official: true
     github_repo: coinbase/agentic-wallet-skills
     github_path: skills/trade
 
   - name: coinbase-official-send-usdc
     path: skills/wallets/coinbase-official-send-usdc
     category: wallets
+    official: true
     github_repo: coinbase/agentic-wallet-skills
     github_path: skills/send-usdc
 

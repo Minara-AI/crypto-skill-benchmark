@@ -19,7 +19,14 @@ export function generate(
   lines.push(`Date: ${result.timestamp}`);
   lines.push("");
 
-  // Quality Score
+  // Safety Gate + Quality Score
+  const gateIcon = result.safetyGate === "PASS" ? "PASS" : "FAIL";
+  lines.push(`SAFETY GATE: ${gateIcon}`);
+  if (result.safetyGateReasons.length > 0) {
+    for (const reason of result.safetyGateReasons) {
+      lines.push(`  - ${reason}`);
+    }
+  }
   lines.push(`SCORE: ${result.qualityScore}/100`);
   lines.push("");
 
@@ -101,6 +108,7 @@ export function generate(
 export function generateCISummary(result: BenchmarkResult): string {
   let md = `## Crypto Skill Benchmark\n\n`;
   md += `| Metric | Value |\n|--------|-------|\n`;
+  md += `| Safety Gate | ${result.safetyGate === "PASS" ? "\u2705 PASS" : "\u274C FAIL"} |\n`;
   md += `| Score | ${result.qualityScore}/100 |\n`;
   md += `| Scenarios | ${result.scenariosPassed}/${result.totalScenarios} passed |\n`;
 
@@ -135,11 +143,22 @@ export function generateSkillReportMd(result: BenchmarkResult): string {
   lines.push(`| | |`);
   lines.push(`|---|---|`);
   lines.push(`| **Score** | **${result.qualityScore}/100** |`);
+  lines.push(`| **Safety Gate** | **${result.safetyGate === "PASS" ? "\u2705 PASS" : "\u274C FAIL"}** |`);
   lines.push(`| Version | ${result.skillVersion} |`);
   lines.push(`| Model | ${result.claudeVersion} |`);
   lines.push(`| Date | ${result.timestamp} |`);
   lines.push(`| Scenarios | ${result.scenariosPassed} passed / ${result.scenariosPartial} partial / ${result.scenariosFailed} failed (${result.totalScenarios} total) |`);
   lines.push("");
+
+  // Safety Gate details (when failed)
+  if (result.safetyGate === "FAIL" && result.safetyGateReasons.length > 0) {
+    lines.push(`> **\u26A0\uFE0F Safety Gate Failed**`);
+    lines.push(">");
+    for (const reason of result.safetyGateReasons) {
+      lines.push(`> - ${reason}`);
+    }
+    lines.push("");
+  }
 
   // Dimension scores table
   lines.push("## Dimension Scores");

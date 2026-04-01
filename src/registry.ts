@@ -16,6 +16,7 @@ interface RegistryEntry {
   name: string;
   path: string;
   category: string;
+  official?: boolean;     // true = maintained by project team, pulled by default
   github_repo?: string;   // Direct source: e.g. "minara-ai/skills"
   github_path?: string;   // Path within that repo: e.g. "skills/minara"
 }
@@ -29,6 +30,7 @@ interface RegistryConfig {
 interface LockEntry {
   name: string;
   category: string;
+  official: boolean;
   version: string;
   commit: string;
   pulled_at: string;
@@ -62,17 +64,30 @@ export async function loadLock(): Promise<LockFile | null> {
   return JSON.parse(raw) as LockFile;
 }
 
+export type PullScope = "official" | "community" | "all";
+
 /**
- * Pull all skills from the registry.
- * Downloads each skill directory from GitHub using sparse checkout.
+ * Pull skills from the registry.
+ *
+ * Scope controls which skills are pulled:
+ *   - "official"  (default): only skills with `official: true`
+ *   - "community": only skills without `official: true`
+ *   - "all": every skill in the registry
+ *
+ * Category optionally filters by skill category (e.g. "exchanges", "defi").
  */
-export async function pullAll(options: { force?: boolean } = {}): Promise<{
+export async function pullAll(options: {
+  force?: boolean;
+  scope?: PullScope;
+  category?: string;
+} = {}): Promise<{
   pulled: string[];
   skipped: string[];
   errors: string[];
 }> {
   const registry = await loadRegistry();
   const lock = await loadLock();
+  const scope = options.scope ?? "official";
 
   await mkdir(SKILLS_DIR, { recursive: true });
 
@@ -80,12 +95,34 @@ export async function pullAll(options: { force?: boolean } = {}): Promise<{
   const headCommit = await getRemoteHead(registry.repo, registry.branch);
   console.log(`Remote HEAD: ${headCommit.slice(0, 8)} (${registry.repo}@${registry.branch})`);
 
+  // Filter skills by scope and category
+  let skills = registry.skills;
+
+  if (scope === "official") {
+    skills = skills.filter((s) => s.official === true);
+  } else if (scope === "community") {
+    skills = skills.filter((s) => !s.official);
+  }
+
+  if (options.category) {
+    skills = skills.filter((s) => s.category === options.category);
+  }
+
+  console.log(`Scope: ${scope} (${skills.length}/${registry.skills.length} skills)`);
+
   const pulled: string[] = [];
   const skipped: string[] = [];
   const errors: string[] = [];
+  // Preserve lock entries for skills not in this pull
   const lockEntries: LockEntry[] = [];
+  const pulledNames = new Set(skills.map((s) => s.name));
+  for (const prev of lock?.skills ?? []) {
+    if (!pulledNames.has(prev.name)) {
+      lockEntries.push(prev);
+    }
+  }
 
-  for (const entry of registry.skills) {
+  for (const entry of skills) {
     const skillDir = join(SKILLS_DIR, entry.name);
     const lockEntry = lock?.skills.find((s) => s.name === entry.name);
 
@@ -128,6 +165,7 @@ export async function pullAll(options: { force?: boolean } = {}): Promise<{
       lockEntries.push({
         name: entry.name,
         category: entry.category,
+        official: entry.official === true,
         version,
         commit: skillHeadCommit,
         pulled_at: new Date().toISOString(),

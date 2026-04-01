@@ -117,7 +117,7 @@ Rubrics live in `rubrics/{dimension}.md`. Each rubric:
 ## CLI Commands
 
 ```bash
-crypto-skill-bench pull [--force]                    # Pull skills from registry
+crypto-skill-bench pull [--all] [--category CAT] [--force]  # Pull skills (default: official only)
 crypto-skill-bench list                              # List pulled skills
 crypto-skill-bench evaluate <dir> [dir2 ...] [opts]  # Evaluate skills
 ```

@@ -14,15 +14,21 @@ crypto-skill-bench — Benchmark framework for crypto skills
 
 USAGE:
   crypto-skill-bench evaluate <skill-dir> [skill-dir2 ...] [options]
-  crypto-skill-bench pull [--force]
+  crypto-skill-bench pull [options]
   crypto-skill-bench list
 
 COMMANDS:
   evaluate <dirs...>      Evaluate one or more skill directories
-  pull                    Pull/update all skills from registry.yaml
+  pull                    Pull skills from registry (default: official only)
   list                    List all pulled skills with versions
 
-OPTIONS:
+PULL OPTIONS:
+  --all                   Pull all skills (official + community)
+  --community             Pull only community skills
+  --category CAT          Filter by category (exchanges, defi, trading, wallets)
+  --force                 Re-pull even if already at latest commit
+
+EVALUATE OPTIONS:
   --ci                    CI mode: exit 1 if safety gate fails
   --tier TIER             Scenario tiers to run: basic, intermediate, adversarial, all
                           (default: all. Comma-separated.)
@@ -30,7 +36,8 @@ OPTIONS:
   --concurrency N         Max parallel API calls (default: 10)
   --model MODEL           OpenRouter model ID for LLM judge (default: anthropic/claude-opus-4-6)
   --skill-model MODEL     OpenRouter model ID for skill invocation (default: anthropic/claude-sonnet-4-6)
-  --force                 Re-pull all skills (pull only)
+
+GENERAL:
   --help                  Show this help
 
 ENVIRONMENT:
@@ -39,8 +46,14 @@ ENVIRONMENT:
   BENCH_SKILL_MODEL       Override skill invocation model (same as --skill-model flag)
 
 EXAMPLES:
-  # Pull skills from registry
+  # Pull official skills (default)
   crypto-skill-bench pull
+
+  # Pull all skills (official + community)
+  crypto-skill-bench pull --all
+
+  # Pull only DeFi skills
+  crypto-skill-bench pull --all --category defi
 
   # Evaluate a single skill
   crypto-skill-bench evaluate ./skills/minara-official
@@ -70,8 +83,22 @@ async function main() {
   if (command === "pull") {
     const { pullAll } = await import("./registry.js");
     const force = args.includes("--force");
-    console.log(`\nPulling skills from registry...${force ? " (force)" : ""}`);
-    const { pulled, skipped, errors } = await pullAll({ force });
+    const all = args.includes("--all");
+    const community = args.includes("--community");
+    const scope = all ? "all" as const : community ? "community" as const : "official" as const;
+
+    let category: string | undefined;
+    const catIdx = args.indexOf("--category");
+    if (catIdx !== -1) {
+      category = args[catIdx + 1];
+      if (!category || category.startsWith("--")) {
+        console.error("Error: --category requires a value (exchanges, defi, trading, wallets)");
+        process.exit(1);
+      }
+    }
+
+    console.log(`\nPulling skills from registry (scope: ${scope})...${force ? " (force)" : ""}${category ? ` (category: ${category})` : ""}`);
+    const { pulled, skipped, errors } = await pullAll({ force, scope, category });
 
     console.log(`\nDone: ${pulled.length} pulled, ${skipped.length} skipped, ${errors.length} errors`);
     if (errors.length > 0) {
@@ -93,12 +120,13 @@ async function main() {
     }
 
     console.log(`\nPulled skills (${skills.length}):\n`);
-    console.log("  Name".padEnd(42) + "Category".padEnd(14) + "Version".padEnd(12) + "Commit");
-    console.log("  " + "─".repeat(70));
+    console.log("  Name".padEnd(42) + "Type".padEnd(12) + "Category".padEnd(14) + "Version".padEnd(12) + "Commit");
+    console.log("  " + "─".repeat(82));
 
     for (const s of skills) {
+      const badge = s.official ? "official" : "community";
       console.log(
-        `  ${s.name.padEnd(40)}${s.category.padEnd(14)}${s.version.padEnd(12)}${s.commit.slice(0, 8)}`
+        `  ${s.name.padEnd(40)}${badge.padEnd(12)}${s.category.padEnd(14)}${s.version.padEnd(12)}${s.commit.slice(0, 8)}`
       );
     }
     console.log("");
