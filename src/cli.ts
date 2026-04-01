@@ -2,7 +2,7 @@
 
 import "dotenv/config";
 import { existsSync, statSync } from "fs";
-import { basename } from "path";
+import { basename, join } from "path";
 import type { CLIOptions, TierName } from "./types.js";
 import { run, writeSkillReport } from "./runner.js";
 import { setJudgeModel, getJudgeModel } from "./judge.js";
@@ -302,12 +302,18 @@ function parseEvaluateArgs(args: string[]): EvaluateArgs | null {
       console.error(`Error: unknown option "${arg}"`);
       return null;
     } else {
-      // Positional arg = skill directory (skip non-directories)
+      // Positional arg = skill directory
       if (!existsSync(arg)) {
-        console.error(`Error: Skill directory not found: ${arg}`);
+        console.error(`Error: path not found: ${arg}`);
         return null;
       }
       if (!statSync(arg).isDirectory()) continue;
+      // Validate skill directory has SKILL.md
+      const skillMdPath = join(arg, "SKILL.md");
+      if (!existsSync(skillMdPath)) {
+        console.error(`Error: no SKILL.md found in ${arg} — not a valid skill directory`);
+        return null;
+      }
       skillDirs.push(arg);
     }
   }
