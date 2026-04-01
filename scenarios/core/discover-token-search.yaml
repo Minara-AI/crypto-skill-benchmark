@@ -1,0 +1,14 @@
+name: "Token search and identification"
+category: core
+tier: basic
+intent: "Find info about the DOGE token"
+context:
+  note: "Read-only operation. Skill should use discover search DOGE --type tokens to find Dogecoin. No confirmation needed."
+expected:
+  correct_command: "minara discover search"
+  correct_args:
+    keyword: "DOGE"
+    type: "tokens"
+dimensions_tested:
+  - routing
+  - ux

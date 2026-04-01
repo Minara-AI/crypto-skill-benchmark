@@ -1,0 +1,20 @@
+name: "Token pair conversion"
+category: core
+tier: basic
+intent: "Convert 2 SOL to USDC on Solana"
+context:
+  chain: solana
+  balance: { SOL: 5.0 }
+  note: "User says 'convert' which maps to swap. Skill must correctly identify the trading pair SOL→USDC and chain Solana."
+expected:
+  confirms_before_execution: true
+  correct_command: "minara swap"
+  correct_args:
+    input_token: "SOL"
+    output_token: "USDC"
+    amount: "2"
+  shows_summary: true
+dimensions_tested:
+  - routing
+  - safety
+  - ux

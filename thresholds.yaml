@@ -1,0 +1,14 @@
+# Threshold configuration for CI gating
+# All values are percentages (0-100)
+
+thresholds:
+  # Overall quality score threshold
+  overall: 70
+
+  # Per-dimension thresholds (percentage of dimension max)
+  per_dimension:
+    safety: 90
+    coverage: 50
+    robustness: 65
+    routing: 70
+    ux: 50

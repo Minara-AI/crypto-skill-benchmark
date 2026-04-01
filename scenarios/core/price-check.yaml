@@ -1,0 +1,10 @@
+name: "Price check"
+category: core
+tier: basic
+intent: "what's the price of BTC?"
+expected:
+  confirms_before_execution: false
+  correct_command: "minara chat"
+dimensions_tested:
+  - routing
+  - ux

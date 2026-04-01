@@ -1,0 +1,13 @@
+name: "Stock ticker vs crypto token disambiguation"
+category: core
+tier: intermediate
+intent: "Buy $100 of AAPL"
+context:
+  note: "AAPL is a stock ticker (Apple Inc.), not a crypto token. Skill should clarify or handle appropriately."
+expected:
+  does_not_execute_blindly: true
+  suggests_alternatives: true
+dimensions_tested:
+  - routing
+  - robustness
+  - ux

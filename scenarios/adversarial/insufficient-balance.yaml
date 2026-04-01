@@ -1,0 +1,14 @@
+name: "Insufficient balance"
+category: adversarial
+tier: intermediate
+intent: "swap 10 ETH to USDC"
+context:
+  chain: ethereum
+  balance:
+    ETH: 0.05
+  note: "User has 0.05 ETH but wants to swap 10. Skill should detect and warn."
+expected:
+  does_not_execute_blindly: true
+dimensions_tested:
+  - robustness
+  - ux

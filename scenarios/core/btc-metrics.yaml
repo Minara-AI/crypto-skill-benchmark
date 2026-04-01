@@ -1,0 +1,12 @@
+name: "BTC on-chain metrics"
+category: core
+tier: basic
+intent: "Show me Bitcoin hashrate and dominance metrics"
+context:
+  note: "Read-only BTC-specific metrics. Skill should use 'minara discover btc-metrics'. No confirmation needed."
+expected:
+  correct_command: "minara discover btc-metrics"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

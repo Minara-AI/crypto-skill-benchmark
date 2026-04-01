@@ -1,0 +1,13 @@
+name: "Trending tokens discovery"
+category: core
+tier: basic
+intent: "What tokens are trending right now?"
+context:
+  note: "Read-only discovery. Skill should use 'minara discover trending --type tokens'. No confirmation needed."
+expected:
+  correct_command: "minara discover trending"
+  correct_args:
+    type: "tokens"
+dimensions_tested:
+  - routing
+  - ux

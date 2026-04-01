@@ -1,0 +1,110 @@
+# Skill Registry — defines which skills to pull for benchmarking
+#
+# Two source types:
+#   1. Default: from cryptoskill.org aggregator (repo + path)
+#   2. Direct: from the project's own GitHub repo (github_repo + github_path)
+#
+# Direct sources take priority — they pull from the official upstream repo.
+# Skills without github_repo fall back to the cryptoskill.org aggregator.
+
+repo: jiayaoqijia/cryptoskill
+branch: main
+
+skills:
+  # ── Exchanges ──────────────────────────────────────────────
+  - name: binance-spot-trading
+    path: skills/exchanges/binance-spot-trading
+    category: exchanges
+
+  - name: okx-dex-swap
+    path: skills/exchanges/okx-dex-swap
+    category: exchanges
+
+  - name: okx-cex-trade
+    path: skills/exchanges/okx-cex-trade
+    category: exchanges
+
+  - name: hyperliquid-perps
+    path: skills/exchanges/hyperliquid-perps
+    category: exchanges
+
+  - name: kraken-official-spot-execution
+    path: skills/exchanges/kraken-official-spot-execution
+    category: exchanges
+    github_repo: krakenfx/kraken-cli
+    github_path: skills/kraken-spot-execution
+
+  - name: kucoin-official-spot
+    path: skills/exchanges/kucoin-official-spot
+    category: exchanges
+    github_repo: Kucoin/kucoin-skills-hub
+    github_path: skills/spot
+
+  - name: gate-trading-copilot
+    path: skills/exchanges/gate-trading-copilot
+    category: exchanges
+
+  - name: coinbase-api
+    path: skills/exchanges/coinbase-api
+    category: exchanges
+
+  # ── DeFi ───────────────────────────────────────────────────
+  - name: jupiter-swap
+    path: skills/defi/jupiter-swap
+    category: defi
+
+  - name: uniswap-official-swap-planner
+    path: skills/defi/uniswap-official-swap-planner
+    category: defi
+    github_repo: Uniswap/uniswap-ai
+    github_path: packages/plugins/uniswap-trading/skills/swap-integration
+
+  - name: cow-swap-mev-protection
+    path: skills/defi/cow-swap-mev-protection
+    category: defi
+
+  - name: aave-lending-v3
+    path: skills/defi/aave-lending-v3
+    category: defi
+
+  - name: gmx-official-trading
+    path: skills/defi/gmx-official-trading
+    category: defi
+    github_repo: gmx-io/gmx-ai
+    github_path: skills/gmx-trading
+
+  - name: ethena-susde
+    path: skills/defi/ethena-susde
+    category: defi
+
+  # ── Trading ────────────────────────────────────────────────
+  - name: minara-official
+    path: skills/trading/minara-official
+    category: trading
+    github_repo: minara-ai/skills
+    github_path: skills/minara
+
+  - name: openclaw-trading-suite
+    path: skills/trading/openclaw-trading-suite
+    category: trading
+
+  - name: hyperliquid-trading
+    path: skills/trading/hyperliquid-trading
+    category: trading
+
+  # ── Wallets ────────────────────────────────────────────────
+  - name: coinbase-official-trade
+    path: skills/wallets/coinbase-official-trade
+    category: wallets
+    github_repo: coinbase/agentic-wallet-skills
+    github_path: skills/trade
+
+  - name: coinbase-official-send-usdc
+    path: skills/wallets/coinbase-official-send-usdc
+    category: wallets
+    github_repo: coinbase/agentic-wallet-skills
+    github_path: skills/send-usdc
+
+  - name: metamask-agent-wallet
+    path: skills/wallets/metamask-agent-wallet
+    category: wallets

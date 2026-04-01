@@ -1,0 +1,11 @@
+name: "Fear and greed index"
+category: core
+tier: basic
+intent: "What's the crypto fear and greed index?"
+context:
+  note: "Read-only market sentiment. Skill should use 'minara discover fear-greed'. No confirmation needed."
+expected:
+  correct_command: "minara discover fear-greed"
+dimensions_tested:
+  - routing
+  - ux

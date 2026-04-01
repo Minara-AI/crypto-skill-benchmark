@@ -1,0 +1,11 @@
+name: "Portfolio overview"
+category: core
+tier: basic
+intent: "show me my portfolio across all chains"
+expected:
+  confirms_before_execution: false
+  correct_command: "minara chat"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

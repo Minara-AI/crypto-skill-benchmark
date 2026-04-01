@@ -1,0 +1,12 @@
+name: "Token comparison research"
+category: core
+tier: basic
+intent: "Compare ETH vs SOL — which is a better investment for the next 6 months?"
+context:
+  note: "Research-level analysis, not a quick ask. Skill should use 'minara research' for detailed multi-factor comparison. No confirmation needed."
+expected:
+  correct_command: "minara research"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

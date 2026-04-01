@@ -1,0 +1,19 @@
+name: "Perps with non-standard symbol format"
+category: adversarial
+tier: adversarial
+intent: "Long bitcoin with 5x leverage for 200 dollars"
+context:
+  chain: hyperliquid
+  balance: { USDC: 500 }
+  note: "User says 'bitcoin' (full name) not 'BTC' (ticker), and 'dollars' not a specific stablecoin. Skill must correctly normalize: bitcoin→BTC, dollars→USD-equivalent sizing."
+expected:
+  confirms_before_execution: true
+  correct_args:
+    symbol: "BTC"
+    side: "long"
+    leverage: "5"
+  shows_summary: true
+dimensions_tested:
+  - routing
+  - robustness
+  - ux

@@ -1,0 +1,12 @@
+name: "Quick AI analysis"
+category: core
+tier: basic
+intent: "Should I buy ETH right now?"
+context:
+  note: "Read-only operation. Skill should use 'minara ask' for quick analysis. No confirmation needed."
+expected:
+  correct_command: "minara ask"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

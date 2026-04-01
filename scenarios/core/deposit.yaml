@@ -1,0 +1,11 @@
+name: "Deposit funds"
+category: core
+tier: basic
+intent: "deposit ETH to my wallet"
+expected:
+  confirms_before_execution: false
+  correct_command: "minara deposit"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

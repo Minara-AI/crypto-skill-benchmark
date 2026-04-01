@@ -1,0 +1,12 @@
+name: "Deep research analysis"
+category: core
+tier: basic
+intent: "Do a deep dive on Solana DeFi ecosystem — which protocols have the best yields?"
+context:
+  note: "Read-only operation requiring detailed analysis. Skill should use 'minara research' (not 'ask') since user explicitly requests deep/detailed analysis. No confirmation needed."
+expected:
+  correct_command: "minara research"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

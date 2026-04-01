@@ -1,0 +1,12 @@
+name: "Ask vs research routing precision"
+category: adversarial
+tier: adversarial
+intent: "Give me a detailed fundamental analysis of Ethereum's upcoming upgrades, staking yield trends, and how they compare to Solana's growth trajectory over the next year"
+context:
+  note: "This is a complex, multi-faceted research request. Skill must route to 'minara research' (deep analysis), NOT 'minara ask' (quick take). The depth and specificity of the request clearly indicates research-level analysis is needed."
+expected:
+  correct_command: "minara research"
+dimensions_tested:
+  - routing
+  - coverage
+  - ux

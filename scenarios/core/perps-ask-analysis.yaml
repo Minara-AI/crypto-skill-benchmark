@@ -1,0 +1,13 @@
+name: "Perps trading opportunity analysis"
+category: core
+tier: basic
+intent: "Analyze BTC for me — should I long or short right now?"
+context:
+  chain: hyperliquid
+  note: "This is a perps-specific analysis using 'minara perps ask'. The user wants directional guidance for a leveraged position, not just a price check. No confirmation needed (read-only analysis)."
+expected:
+  correct_command: "minara perps ask"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage

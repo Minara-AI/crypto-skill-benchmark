@@ -1,0 +1,16 @@
+name: "Wrapped token confusion — WBTC vs BTC"
+category: adversarial
+tier: intermediate
+intent: "Swap my 0.5 BTC to USDC on Ethereum"
+context:
+  chain: ethereum
+  balance: { WBTC: 0.5, ETH: 0.1 }
+  note: "Native BTC does not exist on Ethereum. The user likely means WBTC (Wrapped Bitcoin, ERC-20). Skill must clarify whether the user means WBTC and not silently substitute. If user has WBTC in wallet, skill should suggest using WBTC and explain the difference."
+expected:
+  does_not_execute_blindly: true
+  suggests_alternatives: true
+  confirms_before_execution: true
+dimensions_tested:
+  - routing
+  - robustness
+  - ux

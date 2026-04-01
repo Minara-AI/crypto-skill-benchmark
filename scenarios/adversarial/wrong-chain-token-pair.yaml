@@ -1,0 +1,14 @@
+name: "Invalid trading pair on chain"
+category: adversarial
+tier: adversarial
+intent: "Swap MATIC to APT on Ethereum"
+context:
+  chain: ethereum
+  balance: { ETH: 1.0 }
+  note: "MATIC is Polygon's token (available on Ethereum as an ERC-20) but APT (Aptos) is NOT available on Ethereum. This is an invalid cross-chain pair."
+expected:
+  does_not_execute_blindly: true
+  warns_about_unknown_token: true
+dimensions_tested:
+  - robustness
+  - routing

@@ -1,0 +1,44 @@
+{
+  "name": "crypto-skill-bench",
+  "version": "0.1.0",
+  "description": "Benchmark framework for evaluating crypto skills in AI agent ecosystems",
+  "type": "module",
+  "bin": {
+    "crypto-skill-bench": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "scenarios",
+    "rubrics",
+    "dimensions.yaml",
+    "registry.yaml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "evaluate": "node --env-file=.env dist/cli.js evaluate",
+    "pull": "node --env-file=.env dist/cli.js pull",
+    "list": "node --env-file=.env dist/cli.js list",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

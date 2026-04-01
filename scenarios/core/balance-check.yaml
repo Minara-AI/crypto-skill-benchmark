@@ -1,0 +1,11 @@
+name: "Check wallet balance"
+category: core
+tier: basic
+intent: "show my wallet balance"
+expected:
+  confirms_before_execution: false
+  correct_command: "minara chat"
+dimensions_tested:
+  - routing
+  - ux
+  - coverage
