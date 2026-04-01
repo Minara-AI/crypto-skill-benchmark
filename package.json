@@ -4,7 +4,7 @@
   "description": "Benchmark framework for evaluating crypto skills in AI agent ecosystems",
   "type": "module",
   "bin": {
-    "crypto-skill-bench": "./dist/cli.js"
+    "crypto-skill-bench": "dist/cli.js"
   },
   "files": [
     "dist",
