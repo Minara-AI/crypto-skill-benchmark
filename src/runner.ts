@@ -34,7 +34,7 @@ const PROJECT_ROOT = dirname(__dirname);
  * 6. Store history
  * 7. Generate report
  */
-const REPORTS_DIR = join(PROJECT_ROOT, "reports");
+const REPORTS_DIR = join(process.cwd(), "reports");
 
 function p(n: number): string {
   return n.toString().padStart(2, "0");

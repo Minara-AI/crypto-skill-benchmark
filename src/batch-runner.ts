@@ -9,7 +9,7 @@ import { loadLock, getSkillDir, getLocalSkills } from "./registry.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = dirname(__dirname);
-const REPORTS_DIR = join(PROJECT_ROOT, "reports");
+const REPORTS_DIR = join(process.cwd(), "reports");
 
 /** Zero-pad to 2 digits */
 function p(n: number): string {
