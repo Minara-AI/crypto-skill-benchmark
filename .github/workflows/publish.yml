@@ -4,12 +4,14 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
+    environment: npm
     steps:
       - uses: actions/checkout@v4
 
