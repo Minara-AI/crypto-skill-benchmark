@@ -88,14 +88,43 @@ export async function run(options: CLIOptions): Promise<{
     `Running ${scenarios.length} scenarios (concurrency: ${options.concurrency})...`
   );
 
-  // Stagger scenario starts by 500ms to spread API calls
-  const judgments: ScenarioJudgment[] = await Promise.all(
+  // Stagger scenario starts by 200ms to spread API calls
+  let judgments: ScenarioJudgment[] = await Promise.all(
     scenarios.map((scenario, i) =>
       new Promise<ScenarioJudgment>((resolve) =>
-        setTimeout(() => resolve(runScenario(scenario, options, dimensionsConfig)), i * 500)
+        setTimeout(() => resolve(runScenario(scenario, options, dimensionsConfig)), i * 200)
       )
     )
   );
+
+  // Retry failed scenarios (invocation errors only, not low scores)
+  const failedScenarios = judgments.filter((j) => j.invocationError !== null);
+  if (failedScenarios.length > 0) {
+    console.log(`\nRetrying ${failedScenarios.length} failed scenarios...`);
+    const retryResults = await Promise.all(
+      failedScenarios.map((j, i) =>
+        new Promise<ScenarioJudgment>((resolve) =>
+          setTimeout(() => resolve(runScenario(j.scenario, options, dimensionsConfig)), i * 500)
+        )
+      )
+    );
+
+    // Replace failed judgments with retry results
+    const retryMap = new Map(retryResults.map((r) => [r.scenario.name, r]));
+    judgments = judgments.map((j) => {
+      if (j.invocationError !== null && retryMap.has(j.scenario.name)) {
+        const retry = retryMap.get(j.scenario.name)!;
+        if (retry.invocationError === null) {
+          console.log(`  [RECOVERED] ${j.scenario.name}`);
+          return retry;
+        }
+      }
+      return j;
+    });
+
+    const recovered = retryResults.filter((r) => r.invocationError === null).length;
+    console.log(`  ${recovered}/${failedScenarios.length} recovered`);
+  }
 
   // Score — all scenarios complete before this point
   const result = aggregate(
@@ -153,7 +182,7 @@ async function runScenario(
           { score: 0 as const, reasoning: `Invocation failed: ${invocationResult.error}` },
         ])
       ),
-      instantFailTriggered: true, // Invocation failure = all scores 0 = instant fail
+      instantFailTriggered: false, // Invocation failure is infra issue, not a safety violation
     };
   }
 

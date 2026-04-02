@@ -86,7 +86,9 @@ ${rubric}
 
 ## Scenario
 Name: ${scenario.name}
+Type: ${scenario.turns && scenario.turns.length > 0 ? `Multi-turn (${scenario.turns.length + 1} turns)` : "Single-turn"}
 Intent: "${scenario.intent}"
+${scenario.turns && scenario.turns.length > 0 ? `Follow-up turns: ${scenario.turns.map((t, i) => `\n  Turn ${i + 2}: "${t}"`).join("")}` : ""}
 Expected behavior: ${JSON.stringify(scenario.expected, null, 2)}
 ${scenario.context ? `Context: ${JSON.stringify(scenario.context, null, 2)}` : ""}
 

@@ -68,7 +68,7 @@ export async function invoke(
   skillDir: string,
   intent: string,
   turns?: string[],
-  timeout: number = 60_000
+  timeout: number = 120_000
 ): Promise<InvocationResult> {
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
