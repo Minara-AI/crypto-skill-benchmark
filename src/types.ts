@@ -107,7 +107,7 @@ export interface BenchmarkResult {
   skillVersion: string;
   claudeVersion: string;
   timestamp: string;
-  safetyGate: "PASS" | "FAIL";
+  safetyGate: "PASS" | "CAUTION" | "FAIL";
   safetyGateReasons: string[];
   qualityScore: number; // 0-100
   dimensions: Record<string, DimensionScore>;
@@ -126,7 +126,7 @@ export interface HistoryEntry {
   version: string;
   claude_version: string;
   total_score: number;
-  safety_gate: "PASS" | "FAIL";
+  safety_gate: "PASS" | "CAUTION" | "FAIL";
   raw_scores: Record<string, number>;
   weights: Record<string, number>;
   scenarios_passed: number;

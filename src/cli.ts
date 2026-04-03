@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import "dotenv/config";
-import { existsSync, statSync } from "fs";
+import { existsSync, statSync, writeFileSync } from "fs";
 import { basename, join } from "path";
 import type { CLIOptions, TierName } from "./types.js";
-import { run, writeSkillReport } from "./runner.js";
+import { run, writeSkillReport, retryFailedScenarios } from "./runner.js";
 import { setJudgeModel, getJudgeModel } from "./judge.js";
 import { setSkillModel, getSkillModel } from "./skill-invoker.js";
 import { ensureApiKey } from "./config.js";
@@ -14,11 +14,13 @@ crypto-skill-bench — Benchmark framework for crypto skills
 
 USAGE:
   crypto-skill-bench evaluate <skill-dir> [skill-dir2 ...] [options]
+  crypto-skill-bench retry <report-dir> [options]
   crypto-skill-bench pull [options]
   crypto-skill-bench list
 
 COMMANDS:
   evaluate <dirs...>      Evaluate one or more skill directories
+  retry <report-dir>      Re-run failed scenarios from a previous evaluation
   pull                    Pull skills from registry (default: official only)
   list                    List all pulled skills with versions
 
@@ -193,9 +195,19 @@ async function main() {
       console.log(`Judge model: ${getJudgeModel()} (via OpenRouter)`);
       console.log("");
 
-      const { result, report, exitCode } = await run(options);
+      const { result, report, exitCode, failures } = await run(options);
       const skillName = basename(options.skillDir);
-      await writeSkillReport(skillName, result, report);
+      const reportPath = await writeSkillReport(skillName, result, report);
+
+      // Save failures for potential retry
+      if (failures && failures.length > 0) {
+        const failuresPath = reportPath.replace(/\.md$/, "-failures.json");
+        writeFileSync(failuresPath, JSON.stringify(failures, null, 2) + "\n");
+        const reportDir = reportPath.replace(/\/[^/]*$/, "");
+        console.log(`\n  ${failures.length} scenario(s) failed due to invocation errors.`);
+        console.log(`  Retry with: crypto-skill-bench retry ${reportDir}`);
+      }
+
       console.log("\n" + report);
 
       process.exit(exitCode);
@@ -221,13 +233,230 @@ async function main() {
       const passed = results.filter((r) => r.exitCode === 0).length;
       const failed = results.length - passed;
 
+      // Check for any skills with failures
+      const { readdirSync } = await import("fs");
+      const skillReportsDir = join(reportPath, "skill-reports");
+      const failureFiles = existsSync(skillReportsDir)
+        ? readdirSync(skillReportsDir).filter((f: string) => f.endsWith("-failures.json"))
+        : [];
+
       console.log(`\n${"═".repeat(50)}`);
       console.log(`EVALUATE COMPLETE: ${passed} passed, ${failed} failed`);
       console.log(`Report: ${reportPath}`);
+      if (failureFiles.length > 0) {
+        console.log("");
+        console.log(`  ${failureFiles.length} skill(s) have failed scenarios that can be retried:`);
+        console.log(`  crypto-skill-bench retry ${reportPath}`);
+      }
       console.log(`${"═".repeat(50)}`);
 
       process.exit(failed > 0 && evalArgs.ci ? 1 : 0);
     }
+  }
+
+  // ── retry ──────────────────────────────────────────────────
+  if (command === "retry") {
+    const reportDir = args[1];
+    if (!reportDir || reportDir.startsWith("--")) {
+      console.error("Error: report directory is required.");
+      console.log("\nUsage: crypto-skill-bench retry <report-dir>");
+      console.log("Example: crypto-skill-bench retry ./reports/bench-20260402-1312");
+      process.exit(1);
+    }
+
+    if (!existsSync(reportDir)) {
+      console.error(`Error: Report directory not found: ${reportDir}`);
+      process.exit(1);
+    }
+
+    // Find all failures.json files in the report dir
+    const { readdirSync } = await import("fs");
+    const skillReportsDir = join(reportDir, "skill-reports");
+    const isSkillReport = existsSync(skillReportsDir);
+
+    // Parse options
+    let concurrency = 30;
+    let model = process.env.BENCH_JUDGE_MODEL || "anthropic/claude-opus-4-6";
+    let skillModel = process.env.BENCH_SKILL_MODEL || "anthropic/claude-sonnet-4-6";
+
+    for (let i = 2; i < args.length; i++) {
+      if (args[i] === "--concurrency") concurrency = parseInt(args[++i], 10);
+      else if (args[i] === "--model") model = args[++i];
+      else if (args[i] === "--skill-model") skillModel = args[++i];
+    }
+
+    setJudgeModel(model);
+    setSkillModel(skillModel);
+
+    const { generateSkillReportMd } = await import("./reporter.js");
+    const { writeFile: writeFileAsync } = await import("fs/promises");
+
+    if (isSkillReport) {
+      // Batch report — retry each skill that has failures
+      const files = readdirSync(skillReportsDir).filter((f: string) => f.endsWith("-failures.json"));
+
+      if (files.length === 0) {
+        console.log("No failed scenarios to retry.");
+        process.exit(0);
+      }
+
+      console.log(`\nFound ${files.length} skills with failures to retry`);
+
+      let totalRecovered = 0;
+      let totalFailed = 0;
+
+      for (const failFile of files) {
+        const skillName = failFile.replace("-failures.json", "");
+        const failuresPath = join(skillReportsDir, failFile);
+        const jsonPath = join(skillReportsDir, `${skillName}.json`);
+
+        if (!existsSync(jsonPath)) {
+          console.log(`  [SKIP] ${skillName} — no JSON report found`);
+          continue;
+        }
+
+        const failures = JSON.parse(readdirSync.length > 0 ? "" : "");
+        // Read failures
+        const failuresData: { scenario: string }[] = JSON.parse(
+          await (await import("fs/promises")).readFile(failuresPath, "utf-8")
+        );
+
+        if (failuresData.length === 0) continue;
+
+        console.log(`\n  [${skillName}] Retrying ${failuresData.length} failures...`);
+
+        // Find skillDir from the report
+        const existingResult = JSON.parse(
+          await (await import("fs/promises")).readFile(jsonPath, "utf-8")
+        );
+
+        // We need the skill dir — look in ./skills/
+        const skillDir = join(process.cwd(), "skills", skillName);
+        if (!existsSync(skillDir)) {
+          console.log(`    [SKIP] Skill directory not found: ${skillDir}`);
+          continue;
+        }
+
+        const options: CLIOptions = {
+          skillDir,
+          ci: false,
+          tiers: ["basic", "intermediate", "adversarial"],
+          compare: false,
+          concurrency,
+          skillsbenchExport: false,
+          model,
+          skillModel,
+        };
+
+        const { result, report } = await retryFailedScenarios(
+          skillDir, failuresPath, jsonPath, options
+        );
+
+        // Count recovered
+        const remainingFailures = result.scenarioResults.filter((j) => j.invocationError !== null);
+        const recovered = failuresData.length - remainingFailures.length;
+        totalRecovered += recovered;
+        totalFailed += remainingFailures.length;
+
+        // Update report files
+        await writeFileAsync(join(skillReportsDir, `${skillName}.md`), generateSkillReportMd(result));
+        await writeFileAsync(jsonPath, JSON.stringify(result, null, 2) + "\n");
+
+        if (remainingFailures.length === 0) {
+          // All recovered — remove failures file
+          const { unlink } = await import("fs/promises");
+          await unlink(failuresPath);
+        } else {
+          // Update failures file with remaining
+          const remaining = remainingFailures.map((j) => ({
+            scenario: j.scenario.name,
+            category: j.scenario.category,
+            tier: j.scenario.tier,
+            error: j.invocationError,
+            filePath: j.scenario.filePath,
+          }));
+          await writeFileAsync(failuresPath, JSON.stringify(remaining, null, 2) + "\n");
+        }
+
+        console.log(`    ${recovered} recovered, ${remainingFailures.length} still failing`);
+      }
+
+      console.log(`\nRetry complete: ${totalRecovered} recovered, ${totalFailed} still failing`);
+      // TODO: regenerate summary.md
+    } else {
+      // Single skill report — find failures file
+      const dirFiles = readdirSync(reportDir);
+      const failFile = dirFiles.find((f: string) => f.endsWith("-failures.json"));
+
+      if (!failFile) {
+        console.log("No failed scenarios to retry in this report.");
+        process.exit(0);
+      }
+
+      const failuresPath = join(reportDir, failFile);
+      const jsonFile = dirFiles.find((f: string) => f.endsWith(".json") && !f.includes("failures"));
+      if (!jsonFile) {
+        console.error("Error: No result JSON found in report directory.");
+        process.exit(1);
+      }
+
+      const jsonPath = join(reportDir, jsonFile);
+      const existingResult = JSON.parse(
+        await (await import("fs/promises")).readFile(jsonPath, "utf-8")
+      );
+
+      const skillName = existingResult.skillName;
+      const skillDir = join(process.cwd(), "skills", skillName);
+
+      if (!existsSync(skillDir)) {
+        console.error(`Error: Skill directory not found: ${skillDir}`);
+        process.exit(1);
+      }
+
+      const options: CLIOptions = {
+        skillDir,
+        ci: false,
+        tiers: ["basic", "intermediate", "adversarial"],
+        compare: false,
+        concurrency,
+        skillsbenchExport: false,
+        model,
+        skillModel,
+      };
+
+      const { result, report } = await retryFailedScenarios(
+        skillDir, failuresPath, jsonPath, options
+      );
+
+      // Update report
+      const mdFile = dirFiles.find((f: string) => f.endsWith(".md"));
+      if (mdFile) {
+        await writeFileAsync(join(reportDir, mdFile), generateSkillReportMd(result));
+      }
+      await writeFileAsync(jsonPath, JSON.stringify(result, null, 2) + "\n");
+
+      // Update or remove failures
+      const remaining = result.scenarioResults.filter((j) => j.invocationError !== null);
+      if (remaining.length === 0) {
+        const { unlink } = await import("fs/promises");
+        await unlink(failuresPath);
+        console.log("\nAll failures recovered. Failures file removed.");
+      } else {
+        const remainingData = remaining.map((j) => ({
+          scenario: j.scenario.name,
+          category: j.scenario.category,
+          tier: j.scenario.tier,
+          error: j.invocationError,
+          filePath: j.scenario.filePath,
+        }));
+        await writeFileAsync(failuresPath, JSON.stringify(remainingData, null, 2) + "\n");
+        console.log(`\n${remaining.length} scenarios still failing.`);
+      }
+
+      console.log("\n" + report);
+    }
+
+    process.exit(0);
   }
 
   // Unknown command
@@ -308,11 +537,11 @@ function parseEvaluateArgs(args: string[]): EvaluateArgs | null {
         return null;
       }
       if (!statSync(arg).isDirectory()) continue;
-      // Validate skill directory has SKILL.md
+      // Validate skill directory has SKILL.md — skip without SKILL.md
       const skillMdPath = join(arg, "SKILL.md");
       if (!existsSync(skillMdPath)) {
-        console.error(`Error: no SKILL.md found in ${arg} — not a valid skill directory`);
-        return null;
+        console.warn(`  [SKIP] ${basename(arg)} — no SKILL.md found`);
+        continue;
       }
       skillDirs.push(arg);
     }

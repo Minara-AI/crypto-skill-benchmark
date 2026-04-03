@@ -1,120 +1,213 @@
-# Skill Registry — defines which skills to pull for benchmarking
+# Skill Registry — official verified skills only
 #
-# Two source types:
-#   1. Default: from cryptoskill.org aggregator (repo + path)
-#   2. Direct: from the project's own GitHub repo (github_repo + github_path)
-#
-# Direct sources take priority — they pull from the official upstream repo.
-# Skills without github_repo fall back to the cryptoskill.org aggregator.
-#
-# official: true  → maintained by the project team, pulled by default
-# official: false → community-contributed, pulled only with --all
+# Source: https://github.com/jiayaoqijia/cryptoskill
+# All skills listed here are verified official skills from their respective project teams.
+# Skills with github_repo pull directly from the project's own repo for latest updates.
 
 repo: jiayaoqijia/cryptoskill
 branch: main
 
 skills:
-  # ── Exchanges ──────────────────────────────────────────────
-  - name: binance-spot-trading
-    path: skills/exchanges/binance-spot-trading
+  # ── Exchanges: Binance ─────────────────────────────────────
+  - name: binance-official-spot
+    path: skills/exchanges/binance-official-spot
     category: exchanges
 
-  - name: okx-dex-swap
-    path: skills/exchanges/okx-dex-swap
+  - name: binance-official-derivatives-trading-usds-futures
+    path: skills/exchanges/binance-official-derivatives-trading-usds-futures
     category: exchanges
 
-  - name: okx-cex-trade
-    path: skills/exchanges/okx-cex-trade
+  - name: binance-official-convert
+    path: skills/exchanges/binance-official-convert
     category: exchanges
 
-  - name: hyperliquid-perps
-    path: skills/exchanges/hyperliquid-perps
+  - name: binance-official-margin-trading
+    path: skills/exchanges/binance-official-margin-trading
     category: exchanges
 
+  # ── Exchanges: OKX ─────────────────────────────────────────
+  - name: okx-official-cex-trade
+    path: skills/exchanges/okx-official-cex-trade
+    category: exchanges
+
+  - name: okx-official-dex-swap
+    path: skills/exchanges/okx-official-dex-swap
+    category: exchanges
+
+  - name: okx-official-cex-portfolio
+    path: skills/exchanges/okx-official-cex-portfolio
+    category: exchanges
+
+  - name: okx-official-cex-earn
+    path: skills/exchanges/okx-official-cex-earn
+    category: exchanges
+
+  - name: okx-official-agentic-wallet
+    path: skills/exchanges/okx-official-agentic-wallet
+    category: exchanges
+
+  # ── Exchanges: Kraken ──────────────────────────────────────
   - name: kraken-official-spot-execution
     path: skills/exchanges/kraken-official-spot-execution
     category: exchanges
-    official: true
     github_repo: krakenfx/kraken-cli
     github_path: skills/kraken-spot-execution
 
+  - name: kraken-official-futures-trading
+    path: skills/exchanges/kraken-official-futures-trading
+    category: exchanges
+
+  - name: kraken-official-earn-staking
+    path: skills/exchanges/kraken-official-earn-staking
+    category: exchanges
+
+  # ── Exchanges: KuCoin ──────────────────────────────────────
   - name: kucoin-official-spot
     path: skills/exchanges/kucoin-official-spot
     category: exchanges
-    official: true
     github_repo: Kucoin/kucoin-skills-hub
     github_path: skills/spot
 
+  - name: kucoin-official-futures-trading
+    path: skills/exchanges/kucoin-official-futures-trading
+    category: exchanges
+
+  # ── Exchanges: Gate.io ─────────────────────────────────────
   - name: gate-trading-copilot
     path: skills/exchanges/gate-trading-copilot
     category: exchanges
 
-  - name: coinbase-api
-    path: skills/exchanges/coinbase-api
+  - name: gate-dex-trade
+    path: skills/exchanges/gate-dex-trade
+    category: exchanges
+
+  - name: gate-staking
+    path: skills/exchanges/gate-staking
+    category: exchanges
+
+  # ── Exchanges: Bitget ──────────────────────────────────────
+  - name: bitget-official-trading
+    path: skills/exchanges/bitget-official-trading
     category: exchanges
 
   # ── DeFi ───────────────────────────────────────────────────
-  - name: jupiter-swap
-    path: skills/defi/jupiter-swap
-    category: defi
-
   - name: uniswap-official-swap-planner
     path: skills/defi/uniswap-official-swap-planner
     category: defi
-    official: true
     github_repo: Uniswap/uniswap-ai
     github_path: packages/plugins/uniswap-trading/skills/swap-integration
 
-  - name: cow-swap-mev-protection
-    path: skills/defi/cow-swap-mev-protection
+  - name: gmx-official-trading
+    path: skills/defi/gmx-official-trading
+    category: defi
+    github_repo: gmx-io/gmx-ai
+    github_path: skills/gmx-trading
+
+  - name: gmx-official-liquidity
+    path: skills/defi/gmx-official-liquidity
     category: defi
 
   - name: aave-lending-v3
     path: skills/defi/aave-lending-v3
     category: defi
 
-  - name: gmx-official-trading
-    path: skills/defi/gmx-official-trading
+  - name: jupiter-swap
+    path: skills/defi/jupiter-swap
     category: defi
-    official: true
-    github_repo: gmx-io/gmx-ai
-    github_path: skills/gmx-trading
+
+  - name: jupiter-swap-aggregator
+    path: skills/defi/jupiter-swap-aggregator
+    category: defi
+
+  - name: cow-swap-mev-protection
+    path: skills/defi/cow-swap-mev-protection
+    category: defi
 
   - name: ethena-susde
     path: skills/defi/ethena-susde
+    category: defi
+
+  - name: lido-staking-agent
+    path: skills/defi/lido-staking-agent
+    category: defi
+
+  - name: rocketpool-official-liquid-staking
+    path: skills/defi/rocketpool-official-liquid-staking
+    category: defi
+
+  - name: pendle-official-pendle-swap
+    path: skills/defi/pendle-official-pendle-swap
+    category: defi
+
+  - name: kyberswap-official-swap-execute
+    path: skills/defi/kyberswap-official-swap-execute
+    category: defi
+
+  - name: compound-lending-agent
+    path: skills/defi/compound-lending-agent
+    category: defi
+
+  - name: aerodrome-finance
+    path: skills/defi/aerodrome-finance
+    category: defi
+
+  - name: curve-finance-agent
+    path: skills/defi/curve-finance-agent
+    category: defi
+
+  - name: balancer-v3-agent
+    path: skills/defi/balancer-v3-agent
+    category: defi
+
+  - name: eigenlayer-restaking
+    path: skills/defi/eigenlayer-restaking
+    category: defi
+
+  - name: convex-finance-agent
+    path: skills/defi/convex-finance-agent
     category: defi
 
   # ── Trading ────────────────────────────────────────────────
   - name: minara-official
     path: skills/trading/minara-official
     category: trading
-    official: true
     github_repo: minara-ai/skills
     github_path: skills/minara
-
-  - name: openclaw-trading-suite
-    path: skills/trading/openclaw-trading-suite
-    category: trading
-
-  - name: hyperliquid-trading
-    path: skills/trading/hyperliquid-trading
-    category: trading
 
   # ── Wallets ────────────────────────────────────────────────
   - name: coinbase-official-trade
     path: skills/wallets/coinbase-official-trade
     category: wallets
-    official: true
     github_repo: coinbase/agentic-wallet-skills
     github_path: skills/trade
 
   - name: coinbase-official-send-usdc
     path: skills/wallets/coinbase-official-send-usdc
     category: wallets
-    official: true
     github_repo: coinbase/agentic-wallet-skills
     github_path: skills/send-usdc
 
-  - name: metamask-agent-wallet
-    path: skills/wallets/metamask-agent-wallet
+  - name: coinbase-official-fund
+    path: skills/wallets/coinbase-official-fund
     category: wallets
+
+  - name: metamask-official-smart-accounts-kit
+    path: skills/wallets/metamask-official-smart-accounts-kit
+    category: wallets
+
+  - name: privy-official-agentic-wallets
+    path: skills/wallets/privy-official-agentic-wallets
+    category: wallets
+
+  # ── Payments ───────────────────────────────────────────────
+  - name: moonpay-official-moonpay-buy-crypto
+    path: skills/payments/moonpay-official-moonpay-buy-crypto
+    category: payments
+
+  - name: moonpay-official-moonpay-swap-tokens
+    path: skills/payments/moonpay-official-moonpay-swap-tokens
+    category: payments
+
+  - name: circle-official-bridge-stablecoin
+    path: skills/payments/circle-official-bridge-stablecoin
+    category: payments

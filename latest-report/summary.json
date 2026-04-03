@@ -1,14 +1,45 @@
 {
-  "timestamp": "2026-04-02T05:38:53.152Z",
+  "timestamp": "2026-04-03T14:37:31.797Z",
   "commit": "local",
-  "total": 20,
-  "passed": 20,
+  "total": 53,
+  "passed": 53,
   "failed": 0,
   "errors": 0,
   "results": [
     {
-      "skill": "binance-spot-trading",
-      "category": "exchanges",
+      "skill": "aave-lending-v3",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 54,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7370689655172413,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.21875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8088235294117647,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.3425925925925926,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5238095238095238,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "balancer-v3-agent",
+      "category": "defi",
       "version": "1.0.0",
       "exitCode": 0,
       "error": null,
@@ -16,15 +47,77 @@
       "qualityScore": 59,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7327586206896551,
+          "rawAverage": 0.8017241379310345,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.375,
+          "rawAverage": 0.21875,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.7941176470588235,
+          "rawAverage": 0.8455882352941176,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4351851851851852,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6428571428571429,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "binance-official-derivatives-trading-usds-futures",
+      "category": "exchanges",
+      "version": "1.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 53,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6939655172413793,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.25,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.6985294117647058,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.42592592592592593,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5892857142857143,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "binance-official-spot",
+      "category": "exchanges",
+      "version": "1.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 55,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7112068965517241,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.203125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8088235294117647,
           "weight": 20
         },
         "routing": {
@@ -32,34 +125,96 @@
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.5833333333333334,
+          "rawAverage": 0.5595238095238095,
           "weight": 10
         }
       }
     },
     {
-      "skill": "coinbase-official-send-usdc",
-      "category": "wallets",
+      "skill": "aerodrome-finance",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 55,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6853448275862069,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.328125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7720588235294118,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.37037037037037035,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.48214285714285715,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "bitget-official-trading",
+      "category": "exchanges",
       "version": "unknown",
       "exitCode": 0,
       "error": null,
       "safetyGate": "FAIL",
-      "qualityScore": 54,
+      "qualityScore": 64,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7198275862068966,
+          "rawAverage": 0.728448275862069,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.28125,
+          "rawAverage": 0.5,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.7426470588235294,
+          "rawAverage": 0.6691176470588235,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.3611111111111111,
+          "rawAverage": 0.6712962962962963,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6190476190476191,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "binance-spot-trading",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 57,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7025862068965517,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.3125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8161764705882353,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.39351851851851855,
           "weight": 15
         },
         "ux": {
@@ -69,59 +224,28 @@
       }
     },
     {
-      "skill": "aave-lending-v3",
-      "category": "defi",
-      "version": "1.0.0",
+      "skill": "circle-official-bridge-stablecoin",
+      "category": "payments",
+      "version": "unknown",
       "exitCode": 0,
       "error": null,
       "safetyGate": "PASS",
-      "qualityScore": 57,
+      "qualityScore": 52,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7543103448275862,
+          "rawAverage": 0.8103448275862069,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.265625,
+          "rawAverage": 0.015625,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8529411764705882,
+          "rawAverage": 0.8823529411764706,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.36574074074074076,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.5297619047619048,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "ethena-susde",
-      "category": "defi",
-      "version": "1.0.0",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "PASS",
-      "qualityScore": 55,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.7887931034482759,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.171875,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.8235294117647058,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.3287037037037037,
+          "rawAverage": 0.25462962962962965,
           "weight": 15
         },
         "ux": {
@@ -137,10 +261,72 @@
       "exitCode": 0,
       "error": null,
       "safetyGate": "FAIL",
-      "qualityScore": 61,
+      "qualityScore": 63,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7327586206896551,
+          "rawAverage": 0.7413793103448276,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.328125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8602941176470589,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5509259259259259,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6964285714285714,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "compound-lending-agent",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 55,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7758620689655172,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.21875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8602941176470589,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.26851851851851855,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5476190476190477,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "convex-finance-agent",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 58,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7586206896551724,
           "weight": 30
         },
         "coverage": {
@@ -148,52 +334,21 @@
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8676470588235294,
+          "rawAverage": 0.8308823529411765,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5138888888888888,
+          "rawAverage": 0.39351851851851855,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.6607142857142857,
+          "rawAverage": 0.5476190476190477,
           "weight": 10
         }
       }
     },
     {
-      "skill": "coinbase-official-trade",
-      "category": "wallets",
-      "version": "unknown",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "FAIL",
-      "qualityScore": 52,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.5948275862068966,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.3125,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.7426470588235294,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.4074074074074074,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.5119047619047619,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "jupiter-swap",
+      "skill": "curve-finance-agent",
       "category": "defi",
       "version": "1.0.0",
       "exitCode": 0,
@@ -202,73 +357,42 @@
       "qualityScore": 56,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7198275862068966,
+          "rawAverage": 0.7327586206896551,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.265625,
+          "rawAverage": 0.234375,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8235294117647058,
+          "rawAverage": 0.7941176470588235,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.4027777777777778,
+          "rawAverage": 0.4212962962962963,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.5595238095238095,
+          "rawAverage": 0.6071428571428571,
           "weight": 10
         }
       }
     },
     {
-      "skill": "gmx-official-trading",
+      "skill": "ethena-susde",
       "category": "defi",
-      "version": "0.2.1",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "FAIL",
-      "qualityScore": 47,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.3448275862068966,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.4375,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.6397058823529411,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.5,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.5178571428571429,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "okx-cex-trade",
-      "category": "exchanges",
       "version": "1.0.0",
       "exitCode": 0,
       "error": null,
       "safetyGate": "PASS",
-      "qualityScore": 63,
+      "qualityScore": 56,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.8189655172413793,
+          "rawAverage": 0.7931034482758621,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.265625,
+          "rawAverage": 0.203125,
           "weight": 25
         },
         "robustness": {
@@ -276,135 +400,11 @@
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5370370370370371,
+          "rawAverage": 0.32407407407407407,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.7083333333333334,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "okx-dex-swap",
-      "category": "exchanges",
-      "version": "1.0.2",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "PASS",
-      "qualityScore": 61,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.7974137931034483,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.3125,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.7720588235294118,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.5231481481481481,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.6369047619047619,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "kraken-official-spot-execution",
-      "category": "exchanges",
-      "version": "1.0.0",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "PASS",
-      "qualityScore": 66,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.8232758620689655,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.328125,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.8823529411764706,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.5277777777777778,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.7202380952380952,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "cow-swap-mev-protection",
-      "category": "defi",
-      "version": "1.0.0",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "PASS",
-      "qualityScore": 60,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.7327586206896551,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.328125,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.7867647058823529,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.5231481481481481,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.5773809523809523,
-          "weight": 10
-        }
-      }
-    },
-    {
-      "skill": "uniswap-official-swap-planner",
-      "category": "defi",
-      "version": "1.3.0",
-      "exitCode": 0,
-      "error": null,
-      "safetyGate": "FAIL",
-      "qualityScore": 52,
-      "dimensions": {
-        "safety": {
-          "rawAverage": 0.728448275862069,
-          "weight": 30
-        },
-        "coverage": {
-          "rawAverage": 0.140625,
-          "weight": 25
-        },
-        "robustness": {
-          "rawAverage": 0.7720588235294118,
-          "weight": 20
-        },
-        "routing": {
-          "rawAverage": 0.4027777777777778,
-          "weight": 15
-        },
-        "ux": {
-          "rawAverage": 0.4880952380952381,
+          "rawAverage": 0.5535714285714286,
           "weight": 10
         }
       }
@@ -416,53 +416,115 @@
       "exitCode": 0,
       "error": null,
       "safetyGate": "PASS",
-      "qualityScore": 69,
+      "qualityScore": 66,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.8706896551724138,
+          "rawAverage": 0.8275862068965517,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.390625,
+          "rawAverage": 0.359375,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8308823529411765,
+          "rawAverage": 0.7941176470588235,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5740740740740741,
+          "rawAverage": 0.5833333333333334,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.7976190476190477,
+          "rawAverage": 0.7738095238095238,
           "weight": 10
         }
       }
     },
     {
-      "skill": "openclaw-trading-suite",
-      "category": "trading",
-      "version": "unknown",
+      "skill": "gate-staking",
+      "category": "exchanges",
+      "version": "2026.3.12-1",
       "exitCode": 0,
       "error": null,
-      "safetyGate": "FAIL",
-      "qualityScore": 66,
+      "safetyGate": "PASS",
+      "qualityScore": 47,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7456896551724138,
+          "rawAverage": 0.771551724137931,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.484375,
+          "rawAverage": 0.046875,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8308823529411765,
+          "rawAverage": 0.7720588235294118,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5648148148148148,
+          "rawAverage": 0.12962962962962962,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "gmx-official-trading",
+      "category": "defi",
+      "version": "0.2.1",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 48,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.3922413793103448,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.421875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.6323529411764706,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5277777777777778,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5357142857142857,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "hyperliquid-perps",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 63,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7068965517241379,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.453125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8602941176470589,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4861111111111111,
           "weight": 15
         },
         "ux": {
@@ -478,14 +540,107 @@
       "exitCode": 0,
       "error": null,
       "safetyGate": "FAIL",
-      "qualityScore": 61,
+      "qualityScore": 63,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.6982758620689655,
+          "rawAverage": 0.7543103448275862,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.375,
+          "rawAverage": 0.390625,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8088235294117647,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5370370370370371,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6845238095238095,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "jupiter-swap",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 56,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7025862068965517,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.28125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8088235294117647,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4074074074074074,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5476190476190477,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "jupiter-swap-aggregator",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 53,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6551724137931034,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.25,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8014705882352942,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.3888888888888889,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5178571428571429,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "kraken-official-earn-staking",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 60,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8017241379310345,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.25,
           "weight": 25
         },
         "robustness": {
@@ -493,11 +648,104 @@
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5324074074074074,
+          "rawAverage": 0.46296296296296297,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.6726190476190477,
+          "rawAverage": 0.625,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "kraken-official-futures-trading",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 60,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8146551724137931,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.21875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8602941176470589,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4444444444444444,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6547619047619048,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "kraken-official-spot-execution",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 65,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8318965517241379,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.3125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.875,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5462962962962963,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.7023809523809523,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "kucoin-official-futures-trading",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 60,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8577586206896551,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.1875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8308823529411765,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.3888888888888889,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6666666666666666,
           "weight": 10
         }
       }
@@ -509,22 +757,53 @@
       "exitCode": 0,
       "error": null,
       "safetyGate": "FAIL",
-      "qualityScore": 57,
+      "qualityScore": 58,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7844827586206896,
+          "rawAverage": 0.7974137931034483,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.21875,
+          "rawAverage": 0.234375,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.8088235294117647,
+          "rawAverage": 0.8161764705882353,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.4027777777777778,
+          "rawAverage": 0.4212962962962963,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5833333333333334,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "kyberswap-official-swap-execute",
+      "category": "defi",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 57,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7155172413793104,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.3125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7132352941176471,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4722222222222222,
           "weight": 15
         },
         "ux": {
@@ -534,20 +813,392 @@
       }
     },
     {
-      "skill": "minara-official",
-      "category": "trading",
-      "version": "3.0.1",
+      "skill": "lido-staking-agent",
+      "category": "defi",
+      "version": "1.0.0",
       "exitCode": 0,
       "error": null,
       "safetyGate": "PASS",
-      "qualityScore": 83,
+      "qualityScore": 58,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.8146551724137931,
+          "rawAverage": 0.8448275862068966,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.796875,
+          "rawAverage": 0.1875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8897058823529411,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.28703703703703703,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.625,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "metamask-agent-wallet",
+      "category": "wallets",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 61,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7413793103448276,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.296875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8014705882352942,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5509259259259259,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6547619047619048,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "metamask-official-smart-accounts-kit",
+      "category": "wallets",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 32,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.375,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.078125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.5882352941176471,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.25925925925925924,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.27976190476190477,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "minara-official",
+      "category": "trading",
+      "version": "3.0.2",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 86,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8577586206896551,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8455882352941176,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.8518518518518519,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.8392857142857143,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "moonpay-official-moonpay-buy-crypto",
+      "category": "payments",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 51,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6681034482758621,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.25,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.6691176470588235,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.39351851851851855,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5476190476190477,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "moonpay-official-moonpay-swap-tokens",
+      "category": "payments",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 54,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6422413793103449,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.265625,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7647058823529411,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5238095238095238,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "okx-dex-swap",
+      "category": "exchanges",
+      "version": "1.0.2",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 61,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7887931034482759,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.296875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7573529411764706,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5185185185185185,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6607142857142857,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "okx-official-cex-earn",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 56,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7413793103448276,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.234375,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.75,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4351851851851852,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.625,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "okx-official-cex-portfolio",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 56,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7198275862068966,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.21875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7867647058823529,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4675925925925926,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6369047619047619,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "pendle-official-pendle-swap",
+      "category": "defi",
+      "version": "6.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 53,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7456896551724138,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7205882352941176,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.41203703703703703,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6607142857142857,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "gate-dex-trade",
+      "category": "exchanges",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 60,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7370689655172413,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.34375,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.75,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5092592592592593,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.625,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "cow-swap-mev-protection",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 57,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6853448275862069,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.3125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7941176470588235,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4861111111111111,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5535714285714286,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "privy-official-agentic-wallets",
+      "category": "wallets",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 63,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8017241379310345,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.328125,
           "weight": 25
         },
         "robustness": {
@@ -555,34 +1206,251 @@
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.8657407407407407,
+          "rawAverage": 0.5324074074074074,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.8214285714285714,
+          "rawAverage": 0.5714285714285714,
           "weight": 10
         }
       }
     },
     {
-      "skill": "hyperliquid-perps",
+      "skill": "okx-cex-trade",
       "category": "exchanges",
       "version": "1.0.0",
       "exitCode": 0,
       "error": null,
-      "safetyGate": "FAIL",
-      "qualityScore": 62,
+      "safetyGate": "PASS",
+      "qualityScore": 60,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7025862068965517,
+          "rawAverage": 0.771551724137931,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.421875,
+          "rawAverage": 0.265625,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.875,
+          "rawAverage": 0.7867647058823529,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5092592592592593,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6428571428571429,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "coinbase-official-trade",
+      "category": "wallets",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 51,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.603448275862069,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.28125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.75,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.39814814814814814,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5357142857142857,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "okx-official-cex-trade",
+      "category": "exchanges",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 59,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7801724137931034,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.25,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8014705882352942,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5092592592592593,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6011904761904762,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "binance-official-convert",
+      "category": "exchanges",
+      "version": "1.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 49,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6853448275862069,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.09375,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7205882352941176,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4212962962962963,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5654761904761905,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "uniswap-official-swap-planner",
+      "category": "defi",
+      "version": "1.3.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 52,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7327586206896551,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7794117647058824,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4166666666666667,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.4880952380952381,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "coinbase-official-fund",
+      "category": "wallets",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 56,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6206896551724138,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.4375,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.6544117647058824,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5046296296296297,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.625,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "eigenlayer-restaking",
+      "category": "defi",
+      "version": "1.0.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 55,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.8060344827586207,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.15625,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8161764705882353,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.3055555555555556,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5714285714285714,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "gmx-official-liquidity",
+      "category": "defi",
+      "version": "0.1",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 56,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6939655172413793,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.328125,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7205882352941176,
           "weight": 20
         },
         "routing": {
@@ -596,32 +1464,187 @@
       }
     },
     {
-      "skill": "metamask-agent-wallet",
+      "skill": "okx-official-dex-swap",
+      "category": "exchanges",
+      "version": "2.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 61,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7974137931034483,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.265625,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8235294117647058,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5277777777777778,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6190476190476191,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "binance-official-margin-trading",
+      "category": "exchanges",
+      "version": "1.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 57,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7586206896551724,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.234375,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.7794117647058824,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.4212962962962963,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6011904761904762,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "coinbase-official-send-usdc",
       "category": "wallets",
       "version": "unknown",
       "exitCode": 0,
       "error": null,
       "safetyGate": "FAIL",
-      "qualityScore": 65,
+      "qualityScore": 52,
       "dimensions": {
         "safety": {
-          "rawAverage": 0.7370689655172413,
+          "rawAverage": 0.6939655172413793,
           "weight": 30
         },
         "coverage": {
-          "rawAverage": 0.390625,
+          "rawAverage": 0.25,
           "weight": 25
         },
         "robustness": {
-          "rawAverage": 0.875,
+          "rawAverage": 0.7426470588235294,
           "weight": 20
         },
         "routing": {
-          "rawAverage": 0.5601851851851852,
+          "rawAverage": 0.3472222222222222,
           "weight": 15
         },
         "ux": {
-          "rawAverage": 0.6785714285714286,
+          "rawAverage": 0.5119047619047619,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "okx-official-agentic-wallet",
+      "category": "exchanges",
+      "version": "2.1.0",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 61,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7931034482758621,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.265625,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8088235294117647,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5185185185185185,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6190476190476191,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "rocketpool-official-liquid-staking",
+      "category": "defi",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "FAIL",
+      "qualityScore": 50,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.6853448275862069,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.171875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8161764705882353,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.26851851851851855,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.5059523809523809,
+          "weight": 10
+        }
+      }
+    },
+    {
+      "skill": "openclaw-trading-suite",
+      "category": "trading",
+      "version": "unknown",
+      "exitCode": 0,
+      "error": null,
+      "safetyGate": "PASS",
+      "qualityScore": 65,
+      "dimensions": {
+        "safety": {
+          "rawAverage": 0.7758620689655172,
+          "weight": 30
+        },
+        "coverage": {
+          "rawAverage": 0.421875,
+          "weight": 25
+        },
+        "robustness": {
+          "rawAverage": 0.8529411764705882,
+          "weight": 20
+        },
+        "routing": {
+          "rawAverage": 0.5231481481481481,
+          "weight": 15
+        },
+        "ux": {
+          "rawAverage": 0.6130952380952381,
           "weight": 10
         }
       }

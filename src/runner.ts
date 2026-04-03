@@ -44,6 +44,7 @@ export async function run(options: CLIOptions): Promise<{
   result: BenchmarkResult;
   report: string;
   exitCode: number;
+  failures: { scenario: string; category: string; tier: string; error: string | null; filePath: string }[];
 }> {
   // Load config
   const dimensionsConfig = yaml.load(
@@ -64,6 +65,7 @@ export async function run(options: CLIOptions): Promise<{
       result: emptyResult(options),
       report: "No scenarios to run.",
       exitCode: 1,
+      failures: [],
     };
   }
 
@@ -155,9 +157,104 @@ export async function run(options: CLIOptions): Promise<{
     await appendFile(process.env.GITHUB_STEP_SUMMARY, summary);
   }
 
+  // Collect remaining failures for potential retry
+  const failures = judgments
+    .filter((j) => j.invocationError !== null)
+    .map((j) => ({
+      scenario: j.scenario.name,
+      category: j.scenario.category,
+      tier: j.scenario.tier,
+      error: j.invocationError,
+      filePath: j.scenario.filePath,
+    }));
+
   const exitCode = 0;
 
-  return { result, report, exitCode };
+  return { result, report, exitCode, failures };
+}
+
+/**
+ * Re-run specific failed scenarios for a skill, merge results into existing report.
+ */
+export async function retryFailedScenarios(
+  skillDir: string,
+  failuresFile: string,
+  reportJsonFile: string,
+  options: CLIOptions
+): Promise<{ result: BenchmarkResult; report: string }> {
+  // Load config
+  const dimensionsConfig = yaml.load(
+    await readFile(join(PROJECT_ROOT, "dimensions.yaml"), "utf-8")
+  ) as DimensionsConfig;
+
+  // Load existing result
+  const existingResult: BenchmarkResult = JSON.parse(
+    await readFile(reportJsonFile, "utf-8")
+  );
+
+  // Load failures
+  const failures: { scenario: string; filePath: string }[] = JSON.parse(
+    await readFile(failuresFile, "utf-8")
+  );
+
+  if (failures.length === 0) {
+    console.log("No failures to retry.");
+    return { result: existingResult, report: generate(existingResult, {}) };
+  }
+
+  // Load scenarios matching the failures
+  const scenariosDir = join(PROJECT_ROOT, "scenarios");
+  const allScenarios = await mergeScenarios(scenariosDir, undefined, false);
+  const failedNames = new Set(failures.map((f) => f.scenario));
+  const scenariosToRetry = allScenarios.filter((s) => failedNames.has(s.name));
+
+  console.log(`\nRetrying ${scenariosToRetry.length} failed scenarios for ${existingResult.skillName}...`);
+
+  initConcurrency(options.concurrency);
+
+  // Re-run failed scenarios
+  const retryJudgments = await Promise.all(
+    scenariosToRetry.map((scenario, i) =>
+      new Promise<ScenarioJudgment>((resolve) =>
+        setTimeout(() => resolve(runScenario(scenario, options, dimensionsConfig)), i * 500)
+      )
+    )
+  );
+
+  // Merge: replace failed judgments in existing result
+  const retryMap = new Map(retryJudgments.map((j) => [j.scenario.name, j]));
+  let recovered = 0;
+
+  const mergedJudgments = existingResult.scenarioResults.map((j) => {
+    if (j.invocationError !== null && retryMap.has(j.scenario.name)) {
+      const retry = retryMap.get(j.scenario.name)!;
+      if (retry.invocationError === null) {
+        recovered++;
+        console.log(`  [RECOVERED] ${j.scenario.name}`);
+        return retry;
+      }
+    }
+    return j;
+  });
+
+  console.log(`  ${recovered}/${scenariosToRetry.length} recovered`);
+
+  // Re-aggregate
+  const skillName = existingResult.skillName;
+  const skillVersion = existingResult.skillVersion;
+  const claudeVersion = existingResult.claudeVersion;
+
+  const newResult = aggregate(
+    mergedJudgments,
+    dimensionsConfig,
+    skillName,
+    skillVersion,
+    claudeVersion
+  );
+
+  const report = generate(newResult, {});
+
+  return { result: newResult, report };
 }
 
 async function runScenario(

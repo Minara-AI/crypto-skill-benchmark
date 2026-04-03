@@ -96,14 +96,20 @@ export async function runBatch(
         skillsbenchExport: false,
       };
 
-      const { result, report, exitCode } = await run(options);
+      const { result, report, exitCode, failures } = await run(options);
 
       // Write individual skill report
       await writeFile(join(skillsDir, `${skill.name}.md`), generateSkillReportMd(result));
       await writeFile(join(skillsDir, `${skill.name}.json`), JSON.stringify(result, null, 2) + "\n");
 
+      // Save failures for retry
+      if (failures && failures.length > 0) {
+        await writeFile(join(skillsDir, `${skill.name}-failures.json`), JSON.stringify(failures, null, 2) + "\n");
+      }
+
       completed++;
-      console.log(`[${result.qualityScore}/100] ${skill.name} (${completed}/${skills.length} done)`);
+      const failTag = failures && failures.length > 0 ? ` (${failures.length} failed)` : "";
+      console.log(`[${result.qualityScore}/100] ${skill.name}${failTag} (${completed}/${skills.length} done)`);
 
       return {
         skill: skill.name,
@@ -209,13 +215,18 @@ export async function runBatchDirs(
         skillsbenchExport: false,
       };
 
-      const { result, report, exitCode } = await run(options);
+      const { result, report, exitCode, failures } = await run(options);
 
       await writeFile(join(skillsDir, `${skillName}.md`), generateSkillReportMd(result));
       await writeFile(join(skillsDir, `${skillName}.json`), JSON.stringify(result, null, 2) + "\n");
 
+      if (failures && failures.length > 0) {
+        await writeFile(join(skillsDir, `${skillName}-failures.json`), JSON.stringify(failures, null, 2) + "\n");
+      }
+
       completed++;
-      console.log(`[${result.qualityScore}/100] ${skillName} (${completed}/${skillDirs.length} done)`);
+      const failTag = failures && failures.length > 0 ? ` (${failures.length} failed)` : "";
+      console.log(`[${result.qualityScore}/100] ${skillName}${failTag} (${completed}/${skillDirs.length} done)`);
 
       return {
         skill: skillName,
@@ -308,7 +319,7 @@ async function generateSummary(
       );
     } else if (r.result) {
       const score = r.result.qualityScore;
-      const gate = r.result.safetyGate === "PASS" ? "\u2705 PASS" : "\u274C FAIL";
+      const gate = r.result.safetyGate === "PASS" ? "\u2705 PASS" : r.result.safetyGate === "CAUTION" ? "\u26A0\uFE0F CAUTION" : "\u274C FAIL";
       lines.push(
         `| ${i + 1} | ${r.skill} | ${r.category} | ${r.version} | ${gate} | ${score}/100 | ${link} |`
       );
